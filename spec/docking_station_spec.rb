@@ -7,4 +7,7 @@ describe DockingStation do
     new_bike = DockingStation.new.release_bike
     expect(new_bike).to be_working
   end
+
+  it { is_expected.to respond_to :dock_bike }
+    
 end
