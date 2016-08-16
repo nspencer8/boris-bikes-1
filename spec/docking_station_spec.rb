@@ -1,7 +1,5 @@
 require 'docking_station'
 
 describe DockingStation do
-  # it 'should check whether DOckingStation exists' do
-  #   expect(DockingStation).to be(self)
-  # end
+  it { is_expcted.to respond_to(release_bike) }
 end
