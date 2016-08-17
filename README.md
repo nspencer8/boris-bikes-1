@@ -5,3 +5,5 @@ This program models the London bike share network - known as "Boris Bikes". We r
 [will update with more details as we go]
 
 Changes
+
+Naomi is now on the Project.
