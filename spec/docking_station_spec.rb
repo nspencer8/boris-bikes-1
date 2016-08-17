@@ -30,9 +30,7 @@ describe DockingStation do
     end
 
     it "should put an error that dock is full if more than 20 bikes are docked" do
-      20.times do
-        subject.dock(Bike.new)
-      end
+      20.times { subject.dock(Bike.new) }
       expect {subject.dock Bike.new}.to raise_error("this dock is full")
     end
   end
