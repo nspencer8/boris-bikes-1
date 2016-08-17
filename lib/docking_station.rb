@@ -10,7 +10,7 @@ class DockingStation
   def dock(bike)
     fail "this dock is full" unless  @bike == nil
     @bike = bike
-end
+  end
 
   attr_reader :bike
 
