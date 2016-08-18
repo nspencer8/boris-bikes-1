@@ -1,4 +1,5 @@
 require 'docking_station'
+require 'bike'
 
 describe DockingStation do
 
@@ -15,12 +16,19 @@ describe DockingStation do
       # using {} to evaluate a block of code as opposed to () which allows us to evaluate a value
     end
 
+    it 'Only releases working bikes' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject).to be_working #FAILED TEST NEEDS FIXING
+    end
+
   end
 
   it 'releases working bikes' do
     new_bike = Bike.new
     expect(new_bike).to be_working
   end
+
 
   it { is_expected.to respond_to(:dock).with(1).argument }
 
