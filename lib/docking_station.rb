@@ -1,14 +1,15 @@
 require_relative 'bike'
 require_relative 'van'
 require_relative 'garage'
+require_relative 'bike_container'
+
 
 class DockingStation
-
+  include BikeContainer
   attr_accessor :capacity
-
   DEFAULT_CAPACITY = 20
 
-  def initialize(capacity=DEFAULT_CAPACITY)
+  def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
     @working_bikes = []
     @broken_bikes = []
@@ -23,39 +24,20 @@ class DockingStation
     fail "Docking station full" if full?
     if bike_object.working?
        @working_bikes << bike_object
-  else
-    @broken_bikes << bike_object
-  end
-end
-
-def collect(bikes, target)
-  if bikes.length >= free_space
-    raise 'No more space'
-  else
-    if target == :working
-      @working_bikes += bikes
-    elsif target == :broken
-      @broken_bikes += bikes
     else
-      raise 'Check Collect Target'
+      @broken_bikes << bike_object
     end
   end
-end
 
-def give(destination, target)
-  if target == :working
-    destination.collect(@working_bikes, :working)
-    @working_bikes = []
-  elsif target == :broken
-    destination.collect(@broken_bikes, :broken)
-    @broken_bikes = []
-  else
-    raise 'Check Destination'
+  def collect(bikes, target)
+    if bikes.length >= free_space
+      raise 'No more space'
+    else
+      super(bikes, target)
+    end
   end
-end
 
-
-private
+  private
 
   def full?
     @working_bikes.count + @broken_bikes.count >= @capacity

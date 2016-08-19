@@ -1,10 +1,13 @@
 require 'docking_station'
+require_relative './support/bike_container'
 
 describe DockingStation do
   let(:bike) { double :bike }
   before do
-  allow(bike).to receive(:working?).and_return(true)
-end
+    allow(bike).to receive(:working?).and_return(true)
+  end
+
+  it_behaves_like "a bike container"
 
   describe '#release_bike' do
     it 'releases a bike' do
@@ -47,40 +50,11 @@ end
     end
   end
 
-  it 'collects working / broken bikes' do
-    bike1 = double(:bike, :working? => true)
-    subject.collect([bike1], :working)
-    expect(subject.instance_variable_get(:@working_bikes)).to eq([bike1])
-
-    bike2 = double(:bike, :working? => false)
-    subject.collect([bike2],:broken)
-    expect(subject.instance_variable_get(:@broken_bikes)).to eq([bike2])
-
-    expect{subject.collect([bike1],:wrongTarget)}.to raise_error 'Check Collect Target'
-
-    18.times { subject.dock(bike1)}
-    expect { subject.collect([bike1], :working) }.to raise_error 'No more space'
-
-
-  end
-
-  it 'gives bikes to destination' do
-    bike1 = double(:bike, :working? => true)
-    van = double(:van, :collect => true)
-    subject.collect([bike1], :working)
-
-    expect(van).to receive(:collect).with([bike1],:working)
-    subject.give(van, :working)
-    expect(subject.instance_variable_get(:@working_bikes)).to eq([])
-
-
-    bike2 = double(:bike, :working? => false)
-    subject.collect([bike2], :broken)
-
-    expect(van).to receive(:collect).with([bike2],:broken)
-    subject.give(van, :broken)
-    expect(subject.instance_variable_get(:@broken_bikes)).to eq([])
-
-    expect{subject.give(van, :wrongTarget)}.to raise_error 'Check Destination'
+  describe 'capcity checks on collect' do
+    it 'will not collect when over capacity' do
+      bike1 = double(:bike, :working? => true)
+      20.times { subject.dock(bike1)}
+      expect { subject.collect([bike1], :working) }.to raise_error 'No more space'
+    end
   end
 end
