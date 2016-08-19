@@ -57,6 +57,11 @@ end
     expect(subject.instance_variable_get(:@broken_bikes)).to eq([bike2])
 
     expect{subject.collect([bike1],:wrongTarget)}.to raise_error 'Check Collect Target'
+
+    18.times { subject.dock(bike1)}
+    expect { subject.collect([bike1], :working) }.to raise_error 'No more space'
+
+
   end
 
   it 'gives bikes to destination' do

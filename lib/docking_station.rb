@@ -29,12 +29,16 @@ class DockingStation
 end
 
 def collect(bikes, target)
-  if target == :working
-    @working_bikes += bikes
-  elsif target == :broken
-    @broken_bikes += bikes
+  if bikes.length >= free_space
+    raise 'No more space'
   else
-    raise 'Check Collect Target'
+    if target == :working
+      @working_bikes += bikes
+    elsif target == :broken
+      @broken_bikes += bikes
+    else
+      raise 'Check Collect Target'
+    end
   end
 end
 
@@ -59,5 +63,9 @@ private
 
   def empty?
     @working_bikes.empty?
+  end
+
+  def free_space
+    @capacity - (@working_bikes.count + @broken_bikes.count)
   end
 end
