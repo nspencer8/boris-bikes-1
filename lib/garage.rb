@@ -27,4 +27,9 @@ def give(destination, target)
   end
 end
 
+  def fix_bikes
+    @broken_bikes.each {|x| x.fix}
+    @working_bikes += @broken_bikes
+    @broken_bikes = []
+  end
 end
