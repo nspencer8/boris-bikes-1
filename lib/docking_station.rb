@@ -10,8 +10,7 @@ class DockingStation
 
   def initialize(capacity = DEFAULT_CAPACITY)
     @capacity = capacity
-    @working_bikes = []
-    @broken_bikes = []
+    super()
   end
 
   def release_bike

@@ -1,5 +1,11 @@
 # Knows how to transfer objects between containers
 module BikeContainer
+
+  def initialize
+    @working_bikes = []
+    @broken_bikes = []
+  end
+
   def collect(bikes, target)
     if target == :working
       @working_bikes += bikes

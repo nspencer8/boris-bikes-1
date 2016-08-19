@@ -4,8 +4,7 @@ require_relative 'bike_container'
 class Garage
   include BikeContainer
   def initialize
-    @working_bikes = []
-    @broken_bikes = []
+    super()
   end
 
   def fix_bikes
