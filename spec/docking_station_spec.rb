@@ -9,7 +9,7 @@ describe DockingStation do
   end
 
   describe '#release_bike' do
-    it 'should release a bike if avaliable' do
+    it 'should release a working bike if avaliable' do
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
       expect(bike).to be_working
