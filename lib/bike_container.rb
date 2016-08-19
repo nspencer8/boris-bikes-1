@@ -1,3 +1,4 @@
+# Knows how to transfer objects between containers
 module BikeContainer
   def collect(bikes, target)
     if target == :working

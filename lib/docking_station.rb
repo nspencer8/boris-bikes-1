@@ -3,10 +3,9 @@ require_relative 'van'
 require_relative 'garage'
 require_relative 'bike_container'
 
-
+# Knows how to dock and release objects
 class DockingStation
   include BikeContainer
-  attr_accessor :capacity
   DEFAULT_CAPACITY = 20
 
   def initialize(capacity = DEFAULT_CAPACITY)
@@ -16,25 +15,22 @@ class DockingStation
   end
 
   def release_bike
-    fail 'no bikes available!' if empty?
+    raise 'No bikes available!' if empty?
     @working_bikes.pop
   end
 
   def dock(bike_object)
-    fail "Docking station full" if full?
+    raise 'Docking station full' if full?
     if bike_object.working?
-       @working_bikes << bike_object
+      @working_bikes << bike_object
     else
       @broken_bikes << bike_object
     end
   end
 
   def collect(bikes, target)
-    if bikes.length >= free_space
-      raise 'No more space'
-    else
-      super(bikes, target)
-    end
+    raise 'No more space' if bikes.length >= free_space
+    super(bikes, target)
   end
 
   private

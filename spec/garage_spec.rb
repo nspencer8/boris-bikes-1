@@ -2,10 +2,10 @@ require 'garage'
 require_relative './support/bike_container'
 
 describe Garage do
-  it_behaves_like "a bike container"
+  it_behaves_like 'a bike container'
 
   it 'fixes bikes' do
-    bike2 = double(:bike, :working? => false)
+    bike2 = double(:bike, working?: false)
     subject.collect([bike2], :broken)
     expect(bike2).to receive(:fix)
     subject.fix_bikes

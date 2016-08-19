@@ -1,3 +1,4 @@
+# Knows how to be fixed
 class Bike
   def initialize
     @working = true
